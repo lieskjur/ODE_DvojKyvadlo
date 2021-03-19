@@ -34,13 +34,12 @@ alpha=10; beta=10;
 P = [p1;-Phi_t*s_t-2*alpha*Phi*s_t-beta^2*f];
 
 % Export funkci
-matlabFunction(L,'vars',{[s;s_t]},'file','Baumgarte/L');
-matlabFunction(P,'vars',{[s;s_t]},'file','Baumgarte/P');
-ODE_Baumgarte(1,rand(12,1));
+L = matlabFunction(L,'vars',{[s;s_t]});
+P = matlabFunction(P,'vars',{[s;s_t]});
 
 % Simulace
 Y0 = [0.5*cos(pi/6);0.5*sin(pi/6);pi/6;0.5+cos(pi/6);sin(pi/6);0;0;0;0;0;0;0];
-[T,Y] = ode23(@ODE_Baumgarte,[0,3],Y0);
+[T,Y] = ode23(@(t,x) ODE_Baumgarte(L,P,t,x),[0,3],Y0);
 
 figure; plot(T,Y)
 figure; plot(Y(:,1),Y(:,2))
