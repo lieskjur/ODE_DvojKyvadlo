@@ -28,7 +28,7 @@ f = [	s(1)-t1*cos(s(3))
 Phi = jacobian(f,s)
 Phi_t = TimeDiff(Phi,s,s_t)
 
-% Soustava Pohybovych rovnic
+% Soustava rovnic
 L = [M,Phi';Phi,zeros(4,4)];
 alpha=10; beta=10;
 P = [p1;-Phi_t*s_t-2*alpha*Phi*s_t-beta^2*f];
