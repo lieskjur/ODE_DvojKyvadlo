@@ -42,7 +42,7 @@ Y0 = [0.5*cos(pi/6);0.5*sin(pi/6);pi/6;0.5+cos(pi/6);sin(pi/6);0;0;0;0;0;0;0];
 ODE_fun = @(t,y) ODE_Baumgarte(L,P,t,y);
 [T,Y] = ode23(ODE_fun,[0,3],Y0);
 
-% BONUS! Derivace a multiplikátory
+% Prubeh derivaci a multiplikatoru
 [dY_cell,lambda_cell] = cellfun(ODE_fun,num2cell(T)',num2cell(Y',1),'UniformOutput',false);
 dY = cell2mat(dY_cell); lambda = cell2mat(lambda_cell);
 
