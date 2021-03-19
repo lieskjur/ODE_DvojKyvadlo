@@ -39,7 +39,12 @@ P = matlabFunction(P,'vars',{[s;s_t]});
 
 % Simulace
 Y0 = [0.5*cos(pi/6);0.5*sin(pi/6);pi/6;0.5+cos(pi/6);sin(pi/6);0;0;0;0;0;0;0];
-[T,Y] = ode23(@(t,x) ODE_Baumgarte(L,P,t,x),[0,3],Y0);
+ODE_fun = @(t,y) ODE_Baumgarte(L,P,t,y);
+[T,Y] = ode23(ODE_fun,[0,3],Y0);
+
+% BONUS! Derivace a multiplikátory
+[dY_cell,lambda_cell] = cellfun(ODE_fun,num2cell(T)',num2cell(Y',1),'UniformOutput',false);
+dY = cell2mat(dY_cell); lambda = cell2mat(lambda_cell);
 
 % Vizualizace
 figure; plot(T,Y)
