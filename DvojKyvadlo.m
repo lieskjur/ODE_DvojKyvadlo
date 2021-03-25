@@ -1,9 +1,8 @@
 clc; clear all; close all;
 
 syms s s_t [6,1] 'real'
-syms y(t) [12,1]
 
-% Pohybove rovnice
+% Pohybove rovnic
 m1=1;
 m2=1;
 Is1=0.5;
@@ -15,7 +14,7 @@ M1=0;
 M2=0;
 p1 = [0;-m1*g;M1-M2;0;-m2*g;M2];
 
-% Langrangeovy multiplikatory
+% Vazby
 l1=1;
 l2=1;
 t1=0.5;
@@ -43,8 +42,9 @@ ODE_fun = @(t,y) ODE_Baumgarte(L,P,t,y);
 [T,Y] = ode23(ODE_fun,[0,3],Y0);
 
 % Prubeh derivaci a multiplikatoru
-[dY_cell,lambda_cell] = cellfun(ODE_fun,num2cell(T)',num2cell(Y',1),'UniformOutput',false);
-dY = cell2mat(dY_cell); lambda = cell2mat(lambda_cell);
+for i = 1:length(T)
+	[dY(i,:),lambda(i,:)] = ODE_fun(T(i),Y(i,:)');
+end
 
 % Vizualizace
 figure; plot(T,Y)
