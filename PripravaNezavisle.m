@@ -1,4 +1,4 @@
-function [B,B_t,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t)
+function [B,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t,pos_q)
 	% Vazbové "matlab" funkce
 	Funcs.Phi = matlabFunction(Phi,'vars',{s});
 	Funcs.Phi_t = matlabFunction(Phi_t,'vars',{[s;s_t]});
@@ -6,7 +6,6 @@ function [B,B_t,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t)
 	% Nezavisle souradnice
 	n_s = length(s);
 	n_q = n_s-length(phi);
-	pos_q = [3,6];
 	pos_p = 1:n_s; pos_p(pos_q) = [] ;
 
 	% Vyberova matice
@@ -14,7 +13,6 @@ function [B,B_t,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t)
 	for i = 1:n_q
 		B(i,pos_q(i)) = 1;
 	end
-	B_t = zeros(n_q,n_s);
 
 	% Numerické určení fyzikálních souřadnic z nezávislých souřadnic
 	phi_qp = matlabFunction(phi,'vars',{s(pos_q),s(pos_p)});

@@ -1,19 +1,18 @@
 function [dy,s] = ODE_nezavisle(B,M,p,Funcs,t,y)
-	q = y(1:2); dq = y(3:4); s0 = y(5:end);
+	n_q = size(B,1);
+	q = y(1:n_q); dq = y(n_q+1:2*n_q); s0 = y(2*n_q+1:end);
 
 	s = Funcs.Nezavisle2Fyzikalni(q,s0);
 
-	PHI = Funcs.Phi(s);
-	PHIB = [PHI;B];
+	PHIB = [Funcs.Phi(s);B];
 	Rho = inv(PHIB);
-	R = Rho(:,end-1:end);
+	R = Rho(:,end-(n_q-1):end);
 
 	ds = R*dq;
 
-	PHI_t = Funcs.Phi_t([s;ds]);
-	PHIB_t = [PHI_t;zeros(size(B))];
+	PHIB_t = [Funcs.Phi_t([s;ds]);zeros(size(B))];
 	Rho_t = Rho*PHIB_t*Rho;
-	R_t = Rho_t(:,end-1:end);
+	R_t = Rho_t(:,end-(n_q-1):end);
 
 	% Leva a prava strana EoM
 	P = R'*M*R;

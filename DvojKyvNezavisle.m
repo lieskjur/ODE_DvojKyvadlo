@@ -1,5 +1,8 @@
 DvojKyvadlo
-[B,B_t,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t);
+
+% Priprava matice B a potrebnych funkci
+pos_q = [3,6];
+[B,Funcs] = PripravaNezavisle(s,s_t,phi,Phi,Phi_t,pos_q);
 
 % Pocatecní podmínky
 s0 = [0.5*cos(pi/6);0.5*sin(pi/6);pi/6;0.5+cos(pi/6);sin(pi/6);0];
