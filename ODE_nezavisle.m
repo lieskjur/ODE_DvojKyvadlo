@@ -1,4 +1,4 @@
-function dy = ODE_nezavisle(B,B_t,M,p,Funcs,t,y)
+function [dy,s] = ODE_nezavisle(B,B_t,M,p,Funcs,t,y)
 	q = y(1:2); dq = y(3:4); s0 = y(5:end);
 
 	s = Funcs.Q2S(q,s0);
