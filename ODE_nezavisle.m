@@ -1,7 +1,7 @@
-function [dy,s] = ODE_nezavisle(B,B_t,M,p,Funcs,t,y)
+function [dy,s] = ODE_nezavisle(B,M,p,Funcs,t,y)
 	q = y(1:2); dq = y(3:4); s0 = y(5:end);
 
-	s = Funcs.Q2S(q,s0);
+	s = Funcs.Nezavisle2Fyzikalni(q,s0);
 
 	PHI = Funcs.Phi(s);
 	PHIB = [PHI;B];
@@ -11,7 +11,7 @@ function [dy,s] = ODE_nezavisle(B,B_t,M,p,Funcs,t,y)
 	ds = R*dq;
 
 	PHI_t = Funcs.Phi_t([s;ds]);
-	PHIB_t = [PHI_t;B_t];
+	PHIB_t = [PHI_t;zeros(size(B))];
 	Rho_t = Rho*PHIB_t*Rho;
 	R_t = Rho_t(:,end-1:end);
 
