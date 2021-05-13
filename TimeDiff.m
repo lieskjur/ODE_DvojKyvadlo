@@ -1,6 +1,6 @@
 function D = TimeDiff(F,vars,vars_t)
-	sz = numel(vars);
-	syms sb(t) [sz,1]
-	D_p = diff(subs(F,vars,sb),t);
-	D = subs(D_p,[sb;diff(sb,t)],[vars;vars_t]);
+	n_p = numel(vars);
+	syms p(t) [n_p,1]
+	D_p = diff(subs(F,vars,p),t);
+	D = subs(D_p,[p;diff(p,t)],[vars;vars_t]);
 end
